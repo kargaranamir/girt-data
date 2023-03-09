@@ -2,6 +2,7 @@
 
 # Import Libraries
 from github import Github
+from github import BadCredentialsException, RateLimitExceededException, UnknownObjectException
 import base64
 import os
 import json
@@ -26,7 +27,7 @@ username = "USER_NAME"
 personal_token = "YOUR_PERSONAL_TOKEN"
 
 # Authentication
-g = Github(personal_token)
+pyg_session = Github(personal_token)
 gh_session = requests.Session()
 gh_session.auth = (username, personal_token)
 
@@ -68,7 +69,6 @@ def get_repo_features_1(repo):
         "last_modified": str(repo.last_modified),
         "pushed_at": str(repo.pushed_at),
         "main_language": repo.language,
-        "network_count": repo.network_count,
         "total_issues_count": repo.get_issues(state="all").totalCount,
         "open_issues_count": repo.get_issues(state='open').totalCount,
         "closed_issues_count": repo.get_issues(state='closed').totalCount,
@@ -78,7 +78,6 @@ def get_repo_features_1(repo):
         "size": repo.size,
         "topics": repo.get_topics(),
         "stargazers_count": repo.stargazers_count,
-        "watchers_count": repo.watchers_count,
         "subscribers_count": repo.subscribers_count,
         "forks_count": repo.forks_count,
         "commits_count": repo.get_commits().totalCount,
@@ -92,11 +91,14 @@ def get_repo_features_1(repo):
 
 
 # Get repository characteristics (XPath Query)
-def get_repo_features_2(repo):
+def get_repo_features_2(repo, request_obj):
+    """
+    NOTICE: This function may be affected by changes to the GitHub UI, so please check it beforehand and update the Xpath query accordingly.
+    """
     repo_dictionary = {}
 
     # contributors count
-    r = gh_session.get('https://github.com/' + repo.full_name)
+    r = request_obj.get('https://github.com/' + repo.full_name)
     xpath = '//*[@id="repo-content-pjax-container"]/div/div/div[3]/div[2]/div/*/div/h2/a'
     xpath_result = [x.text_content() for x in html.fromstring(r.text).xpath(xpath)]
 
@@ -109,7 +111,7 @@ def get_repo_features_2(repo):
     repo_dictionary["contributors_count"] = repo_dictionary.get("contributors_count", 1)
 
     # issue count
-    r = gh_session.get('https://github.com/' + repo.full_name + '/issues')
+    r = request_obj.get('https://github.com/' + repo.full_name + '/issues')
     xpath = '//*[@id="repo-content-pjax-container"]/div/*/div/*/text()'
     xpath_result = html.fromstring(r.text).xpath(xpath)
 
@@ -128,14 +130,14 @@ def get_repo_features_2(repo):
 
 
 # Merge repository characteristics
-def get_repo_features(repo, new_dir_name, issue_template_exist):
+def get_repo_features(repo, new_dir_name, issue_template_exist, request_obj):
     try:
         dict1 = get_repo_features_1(repo)
     except:
         dict1 = {}
 
     try:
-        dict2 = get_repo_features_2(repo)
+        dict2 = get_repo_features_2(repo, request_obj)
     except:
         dict2 = {}
 
@@ -148,9 +150,17 @@ def get_repo_features(repo, new_dir_name, issue_template_exist):
         json.dump(repo_dictionary_merged, fj, indent=4)
 
 
-def run(username_reponame, issue_dir, feature_dir):
+def wait_rate_limit(core_rate_limit):
+    reset_timestamp = calendar.timegm(core_rate_limit.reset.timetuple())
+    # add 10 seconds to be sure the rate limit has been reset
+    sleep_time = reset_timestamp - calendar.timegm(time.gmtime()) + 10
+    print(f"waiting for {sleep_time}s")
+    time.sleep(sleep_time)
+
+
+def run(username_reponame, issue_dir, feature_dir, pygithub_obj, request_obj):
     try:
-        repo = g.get_repo(username_reponame)
+        repo = pygithub_obj.get_repo(username_reponame)
 
         # make directories
         issue_dir = issue_dir.rstrip('/')
@@ -166,34 +176,43 @@ def run(username_reponame, issue_dir, feature_dir):
 
         # repo features (e.g, stars)
         repo_feature_dir_name = feature_dir + '/' + username_reponame.replace('/', '@')
-        get_repo_features(repo, repo_feature_dir_name, issue_template_exist)
-        return "Successful"
+        get_repo_features(repo, repo_feature_dir_name, issue_template_exist, request_obj)
 
-    except:
-        print("Exception")
-        core_rate_limit = g.get_rate_limit().core
-        reset_timestamp = calendar.timegm(core_rate_limit.reset.timetuple())
-        # add 10 seconds to be sure the rate limit has been reset
-        sleep_time = reset_timestamp - calendar.timegm(time.gmtime()) + 10
-        print(sleep_time)
-        time.sleep(sleep_time)
-        print("start again")
-        return "Unsuccessful"
+        return 1
 
+    except RateLimitExceededException as re:
+        print(re)
+        core_rate_limit = pygithub_obj.get_rate_limit().core
+        wait_rate_limit(core_rate_limit)
+        run(username_reponame, issue_dir, feature_dir, pygithub_obj, request_obj)
 
+    except UnknownObjectException as ue:
+        print(ue)
+        print("The input repo can not be reached")
+        return 0
+
+    except BadCredentialsException as be:
+        print(be)
+        print("Bad credentials, trying without token....")
+        sub_pygithub_obj = Github()
+        sub_request_obj = requests.Session()
+        run(username_reponame, issue_dir, feature_dir, sub_pygithub_obj, sub_request_obj)
+        return 1
 
 
 # Your target repositories
 target_repos = ['keras-team/keras', 'tensorflow/tensorflow', 'user_name/repo_name']
 
-print("start")
+print("start_main")
 start = time.time()
-with ThreadPoolExecutor(max_workers=3) as executor:
+with ThreadPoolExecutor(max_workers=1) as executor:
     results = executor.map(
         partial(
             run,
             issue_dir = './IRTs',
-            feature_dir='./characteristics'
+            feature_dir='./characteristics',
+            pygithub_obj = pyg_session,
+            request_obj = gh_session
         ),
         target_repos,
     )
