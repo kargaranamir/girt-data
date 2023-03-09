@@ -199,6 +199,9 @@ def run(username_reponame, issue_dir, feature_dir, pygithub_obj, request_obj):
         run(username_reponame, issue_dir, feature_dir, sub_pygithub_obj, sub_request_obj)
         return 1
 
+    except Exception as e:
+        print(e)
+        return 0
 
 # Your target repositories
 target_repos = ['keras-team/keras', 'tensorflow/tensorflow', 'user_name/repo_name']
