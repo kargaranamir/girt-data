@@ -1,6 +1,6 @@
 # GIRT-Data (GitHub Issue Report Template)
 
-GIRT-Data is the first and largest dataset of **issue report templates (IRTs)** in both YAML and Markdown format. This dataset and its corresponding open-source crawler tool are intended to support research in this area and to encourage more developers to use IRTs in their repositories. The stable version of the dataset, containing `1_084_300` repositories, that `50_032` of them supports IRTs.
+GIRT-Data is the first and largest dataset of **issue report templates (IRTs)** in both YAML and Markdown format. This dataset and its corresponding open-source crawler tool are intended to support research in this area and to encourage more developers to use IRTs in their repositories. The stable version of the dataset, containing `1_084_300` repositories, that `50_032` of them support IRTs.
 
 
 <p align="center">
@@ -124,3 +124,5 @@ python3 wordcloud_plot.py
 Wordcloud of IRTs in Markdown format
 </p>
 
+## Citation
+The dataset is accepted for [MSR 2023](https://conf.researchr.org/track/msr-2023/msr-2023-data-showcase) conference, under the title of "GIRT-Data: Sampling GitHub Issue Report Templates" ([Search in Google Scholar](https://scholar.google.com/scholar?q=GIRT-Data:+Sampling+GitHub+Issue+Report+Templates)).
