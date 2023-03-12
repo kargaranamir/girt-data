@@ -88,8 +88,7 @@ In GIRT-Data dataset, we have over 1000 repositories for every 19 major programm
 ```
 
 ### Preliminary Analysis
-We have preliminarily analyzed the relationship between some repository characteristics and IRT usage rate. The figure below shows the proportion of repositories that use IRTs for each range of repository characteristics. Since the scale of characteristics differs, different axis bases are used for each characteristic. As can be seen, the chance of IRTs being used in repositories increases as most characteristic counts rise. Contributors and commits, however, do not exactly follow this pattern. In the case of repositories with a number of stargazers between $6.5^6$ and $6.5^7$ (with average stargazers number of $6^{6.27}$), the possibility of supporting an IRT is $0.643$
-
+We have preliminarily analyzed the relationship between some repository characteristics and IRT usage rate. The figure below shows the proportion of repositories that use IRTs for each range of repository characteristics. Since the scale of characteristics differs, different axis bases are used for each characteristic. As can be seen, the chance of IRTs being used in repositories increases as most characteristic counts rise. Contributors and commits, however, do not exactly follow this pattern.
 
 <p align="center">
 <img src="./figs/relation_analysis.png" alt="IRT Usage Rate" width="50%" />
