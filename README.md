@@ -92,8 +92,25 @@ We have preliminarily analyzed the relationship between some repository characte
 
 
 <p align="center">
-<img src="./figs/relation_analysis.png" alt="IRT Usage Rate" width="70%" />
+<img src="./figs/relation_analysis.png" alt="IRT Usage Rate" width="50%" />
 </p>
 <p align="center">
 IRT support rates in repositories based on various characteristics. In the case of repositories with a number of stargazers between $6.5^6$ and $6.5^7$ (with average stargazers number of $6^{6.27}$), the possibility of supporting an IRT is $0.643$.
 </p>
+
+### Worcloud
+
+To illustrate what type of information developers normally ask contributors to include in their issues, we created a word cloud based on the body of IRTs in Markdown format.
+
+Reproducing:
+```python
+python3 wordcloud_plot.py
+```
+
+<p align="center">
+<img src="./figs/wordcloud.png" alt="Wordcloud of IRTs" width="40%" />
+</p>
+<p align="center">
+Wordcloud of IRTs in Markdown format
+</p>
+
