@@ -26,6 +26,9 @@ GIRT-Data stable version:
 The data collected for all repositories (Repository characteristics) and IRTs (Characteristics of IRTs in Markdown and YAML) is stored in tabular, column-oriented format. The data can be imported into a pandas dataframe or a SQL schema. The query function and logical conditions can be used to filter information easily.
 
 ### Pandas
+```Python
+import pandas as pd
+```
 
 Repository characteristics:
 ```Python
