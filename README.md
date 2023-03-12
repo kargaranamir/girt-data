@@ -1,4 +1,4 @@
-# GIRT-Data (GitHub Issue Report Template)
+# GIRT-Data (GitHub Issue Report Template Dataset)
 
 GIRT-Data is the first and largest dataset of **issue report templates (IRTs)** in both YAML and Markdown format. This dataset and its corresponding open-source crawler tool are intended to support research in this area and to encourage more developers to use IRTs in their repositories. The stable version of the dataset, containing `1_084_300` repositories, that `50_032` of them support IRTs.
 
