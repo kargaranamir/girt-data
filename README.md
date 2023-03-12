@@ -10,6 +10,17 @@ GIRT-Data is the first and largest dataset of **issue report templates (IRTs)** 
 Right: An IRT used by Pytorch Repository for Bug Report, Left: Different Category of IRTs used by Pytorch Repository.
 </p>
 
+
+## Download Data
+Got to [releases](https://github.com/kargaranamir/girt-data/releases) part and download the latest version of data.
+
+GIRT-Data stable version:
+```bash
+!wget https://github.com/kargaranamir/girt-data/releases/download/msr23-v1.0/characteristics_repo.csv
+!wget https://github.com/kargaranamir/girt-data/releases/download/msr23-v1.0/characteristics_irts_markdown.csv
+!wget https://github.com/kargaranamir/girt-data/releases/download/msr23-v1.0/characteristics_irts_yaml.csv
+```
+
 ## Load Data
 
 The data collected for all repositories (Repository characteristics) and IRTs (Characteristics of IRTs in Markdown and YAML) is stored in tabular, column-oriented format. The data can be imported into a pandas dataframe or a SQL schema. The query function and logical conditions can be used to filter information easily.
