@@ -15,7 +15,7 @@ pattern = r'''(?x)          # set flag to allow verbose regexps
       | [][.,;"'?():_`-]    # these are separate tokens; includes ], [
     '''
 
-tables_csv = pd.read_csv('CHARACTERISTICS_IRTS_MARKDOWN.csv', index_col='IRT_full_name')
+tables_csv = pd.read_csv('characteristics_irts_markdown.csv', index_col='IRT_full_name')
 
 tables_csv = tables_csv[tables_csv['body'].notna()]
 
