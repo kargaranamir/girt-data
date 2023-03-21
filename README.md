@@ -1,6 +1,6 @@
 # GIRT-Data (GitHub Issue Report Template Dataset)
 
-GIRT-Data is the first and largest dataset of **issue report templates (IRTs)** in both YAML and Markdown format. This dataset and its corresponding open-source crawler tool are intended to support research in this area and to encourage more developers to use IRTs in their repositories. The stable version of the dataset, containing `1_084_300` repositories, that `50_032` of them support IRTs.
+GIRT-Data is the first and largest dataset of **issue report templates (IRTs)** in both YAML and Markdown format. This dataset and its corresponding open-source crawler tool are intended to support research in this area and to encourage more developers to use IRTs in their repositories. The stable version of the dataset contains `1_084_300` repositories and `50_032` of them support IRTs.
 
 
 <p align="center">
@@ -108,7 +108,7 @@ We have preliminarily analyzed the relationship between some repository characte
 <img src="./figs/relation_analysis.png" alt="IRT Usage Rate" width="50%" />
 </p>
 <p align="center">
-IRT support rates in repositories based on various characteristics. In the case of repositories with a number of stargazers between $6.5^6$ and $6.5^7$ (with average stargazers number of $6^{6.27}$), the possibility of supporting an IRT is $0.643$.
+IRT support rates in repositories based on various characteristics. In the case of repositories with a number of stargazers between $6.5^6$ and $6.5^7$ (with average stargazers number of $6.5^{6.27}$), the possibility of supporting an IRT is $0.643$.
 </p>
 
 ### Worcloud
