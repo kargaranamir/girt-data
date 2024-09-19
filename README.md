@@ -128,14 +128,14 @@ Wordcloud of IRTs in Markdown format
 </p>
 
 ## Citation
-The dataset is accepted for [MSR 2023](https://conf.researchr.org/track/msr-2023/msr-2023-data-showcase) conference, under the title of "GIRT-Data: Sampling GitHub Issue Report Templates" ([Search in Google Scholar](https://scholar.google.com/scholar?q=GIRT-Data:+Sampling+GitHub+Issue+Report+Templates)).
+The dataset is published in [MSR 2023](https://conf.researchr.org/track/msr-2023/msr-2023-data-showcase) conference, under the title of "GIRT-Data: Sampling GitHub Issue Report Templates".
 
 ```python
-@article{nikeghbal2023girtdata,
-  title        = {GIRT-Data: Sampling GitHub Issue Report Templates},
-  author       = {Nikeghbal, Nafiseh and Kargaran, Amir Hossein and Heydarnoori, Abbas and Sch{\"u}tze, Hinrich},
-  year         = 2023,
-  journal      = {arXiv preprint arXiv:2303.09236},
-  url          = {https://arxiv.org/abs/2303.09236}
+@inproceedings{nikeghbal2023girt,
+  title={GIRT-Data: Sampling GitHub Issue Report Templates},
+  author={Nikeghbal, Nafiseh and Kargaran, Amir Hossein and Heydarnoori, Abbas and Sch{\"u}tze, Hinrich},
+  year={2023},
+  booktitle = {2023 IEEE/ACM 20th International Conference on Mining Software Repositories (MSR)},
+  pages= {104--108}
 }
 ```
